@@ -1,7 +1,7 @@
 //dependecia a XMLHttpResquest
 const http = require('xmlhttprequest').XMLHttpRequest
 
-const url = "https://newton.now.sh/api/v2/factor/x^2-1"
+const url = "https://pokeapi.co/api/v2/type"
 
 //Funcion para conectara una Api publica 
 function get_data(endpoint){
@@ -27,18 +27,27 @@ function get_data(endpoint){
 }
 
 function exito(data){
-    const tipos = JSON.parse(data)
-    console.log(tipos)
+    const tipos = JSON.parse(data).results
+    //recorrer el arreglo de tipos
+    tipos.forEach((element) => {
+        console.log(`Tipo: ${element.name}`)
+        console.log(`.....................`)
+    });
 }
 
 function fallo(status){
     console.log(status)
 }
 
-//Invocar get_data 
-get_data(url).then(function(response){
-    console.log(response)
-    //exito(response)
-}).catch(function(error){
-    fallo(Error(error))
-})
+//Invocar get_data
+
+const f = async function(){
+    try{
+   let response = await get_data(url)
+        exito(response)
+    }catch(status){
+        fallo(status)
+    }
+
+}
+f()
