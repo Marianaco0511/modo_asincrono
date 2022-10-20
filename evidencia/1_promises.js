@@ -9,8 +9,13 @@ let config = {
 }
 
 //Realizar la operación async
+
 axios(config)
-    
-.catch((error) => {
-    console.log(Error(error))
+    .then(function(response){
+    return response.data.authors
+}).then(function(data){
+    console.log(data)
+})
+.catch(function(error){
+    console.log(Error($error))
 })
